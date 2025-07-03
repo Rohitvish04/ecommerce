@@ -13,7 +13,7 @@ app.use(cors()); // Allow all origins by default
 
 // Or configure it more securely:
 app.use(cors({
-  origin: 'https://your-swagger-ui-domain.com', // or '*'
+  origin: 'https://ecommerce-1azq.onrender.com', // or '*'
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
