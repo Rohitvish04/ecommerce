@@ -1,86 +1,24 @@
 const express = require('express');
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./docs/swagger-output.json');
+
+// MVC Routes
+const categoryRoutes = require('./routes/categoryRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 app.use(express.json());
 
-// ✅ Create Product
-app.post('/products', async (req, res) => {
-  try {
-    const { name, description, price } = req.body;
-    const product = await prisma.product.create({
-      data: {
-        name,
-        description,
-        price: parseFloat(price),
-      },
-    });
-    res.json(product);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+// Swagger UI route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-// ✅ Get All Products (with Pagination)
-app.get('/products', async (req, res) => {
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 5;
-  const skip = (page - 1) * limit;
+// #swagger.tags = ['General']
+// #swagger.description = 'API Docs for Products and Categories'
 
-  const products = await prisma.product.findMany({
-    skip,
-    take: limit,
-    orderBy: { id: 'asc' },
-  });
 
-  res.json(products);
-});
+// App routes
+app.use('/products', productRoutes);
+app.use('/categories', categoryRoutes);
 
-// ✅ Get Single Product by ID
-app.get('/products/:id', async (req, res) => {
-  const { id } = req.params;
-  const product = await prisma.product.findUnique({
-    where: { id: parseInt(id) },
-  });
-  res.json(product);
-});
-
-// ✅ Update Product
-app.put('/products/:id', async (req, res) => {
-  const { id } = req.params;
-  const { name, description, price } = req.body;
-
-  try {
-    const updatedProduct = await prisma.product.update({
-      where: { id: parseInt(id) },
-      data: {
-        name,
-        description,
-        price: parseFloat(price),
-      },
-    });
-    res.json(updatedProduct);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// ✅ Delete Product
-app.delete('/products/:id', async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    await prisma.product.delete({
-      where: { id: parseInt(id) },
-    });
-    res.json({ message: 'Product deleted successfully.' });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// ✅ Start Server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
