@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./docs/swagger-output.json');
@@ -8,6 +9,14 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const productRoutes = require('./routes/productRoutes');
 
 app.use(express.json());
+app.use(cors()); // Allow all origins by default
+
+// Or configure it more securely:
+app.use(cors({
+  origin: 'https://your-swagger-ui-domain.com', // or '*'
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Swagger UI route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));  //change ->  /api-docs
