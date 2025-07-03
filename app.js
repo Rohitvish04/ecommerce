@@ -10,7 +10,7 @@ const productRoutes = require('./routes/productRoutes');
 app.use(express.json());
 
 // Swagger UI route
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerFile));  //change ->  /api-docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));  //change ->  /api-docs
 
 // #swagger.tags = ['General']
 // #swagger.description = 'API Docs for Products and Categories'
