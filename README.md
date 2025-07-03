@@ -61,6 +61,3 @@ https://ecommerce-1azq.onrender.com/
 git clone https://github.com/Rohitvish04/ecommerce.git
 cd ecommerce
 
-DATABASE_URL="postgresql://neondb_owner:npg_rHMUyYK7ks4l@ep-aged-hat-a83wo0ec-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require"
-
-PORT = 3000
