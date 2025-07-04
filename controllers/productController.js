@@ -19,6 +19,7 @@ exports.getAllProducts = async (req, res) => {
     res.json(products);
   } catch (error) {
     console.error(error);
+    console.error("💥 Error in getAllProducts:", error);
     res.status(500).json({ error: 'Something went wrong while fetching products.' });
   }
 };
