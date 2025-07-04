@@ -13,7 +13,7 @@ exports.getAllProducts = async (req, res) => {
       where: filters,
       skip: (page - 1) * limit,
       take: parseInt(limit),
-      // include: { category: true },
+      include: { category: true },
     });
 
     res.json(products);
@@ -30,7 +30,7 @@ exports.getProductById = async (req, res) => {
     const { id } = req.params;
     const product = await prisma.product.findUnique({
       where: { id: parseInt(id) },
-      // include: { category: true },
+      include: { category: true },
     });
 
     if (!product) return res.status(404).json({ error: 'Product not found.' });
