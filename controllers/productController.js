@@ -13,7 +13,7 @@ exports.getAllProducts = async (req, res) => {
       where: filters,
       skip: (page - 1) * limit,
       take: parseInt(limit),
-      include: { category: true },
+      // include: { category: true },
     });
 
     res.json(products);

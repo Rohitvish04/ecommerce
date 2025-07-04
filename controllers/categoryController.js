@@ -3,9 +3,7 @@ const prisma = require('../models/prismaClient');
 // Get all categories
 exports.getAllCategories = async (req, res) => {
   try {
-    const categories = await prisma.category.findMany({
-  include: { category: true }
-});
+    const categories = await prisma.category.findMany();
     res.json(categories);
   } catch (error) {
     console.error(error);
