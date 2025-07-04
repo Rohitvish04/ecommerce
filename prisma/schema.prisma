@@ -17,7 +17,7 @@ datasource db {
 model Category {
   id       Int       @id @default(autoincrement())
   name     String
-  products Product[] // 👈 one-to-many relation
+  products Product[] // ✅ 1-to-many: One category has many products
 }
 
 model Product {
@@ -26,6 +26,6 @@ model Product {
   description String?
   price       Float
   createdAt   DateTime  @default(now())
-  categoryId  Int
-  category    Category  @relation(fields: [categoryId], references: [id]) // 👈 RELATION
+  categoryId  Int       // ✅ Foreign key field
+  category    Category  @relation(fields: [categoryId], references: [id]) // ✅ Relation to Category
 }
