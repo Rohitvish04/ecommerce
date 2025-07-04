@@ -6,8 +6,8 @@ const doc = {
     title: 'E-commerce Product API',
     description: 'REST API with Node.js, Prisma, and NeonDB',
   },
-  host: 'localhost:3000', // ✅ Update this after deployment
-  schemes: ['http'],
+  host: 'ecommerce-1azq.onrender.com', // ✅ Update this after deployment
+  schemes: ['https'],
 };
 
 const outputFile = './docs/swagger-output.json';
